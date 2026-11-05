@@ -1,0 +1,63 @@
+
+name: Build Ahmed alkholy APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract project
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          unzip -o Ahmed_alkholy_fixed_project.zip -d project
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Install dependencies
+        working-directory: project
+        run: npm install
+
+      - name: Build app
+        working-directory: project
+        run: npm run build
+
+      - name: Add Android
+        working-directory: project
+        run: npx cap add android
+
+      - name: Sync Android
+        working-directory: project
+        run: npx cap sync android
+
+      - name: Build APK
+        working-directory: project/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ahmed-alkholy-APK
+          path: project/android/app/build/outputs/apk/debug/app-debug.apk
