@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>Alkholy.A</title>
+  <link rel="icon" type="image/png" href="./assets/alkholy-a-logo.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status"></div>
+  <main id="authView" class="auth-wrap">
+    <section class="auth-card">
+      <div class="brand-mark"><img src="./assets/alkholy-a-logo.png" alt="Alkholy.A"></div>
+      <h1>Alkholy.A</h1>
+      <p class="muted" data-i18n="welcome">دردشتك، أصدقاؤك، وحالاتك في مكان واحد</p>
+      <div class="lang-row">
+        <label for="authLang" data-i18n="language">اللغة</label>
+        <select id="authLang"><option value="ar">العربية</option><option value="en">English</option><option value="fr">Français</option></select>
+      </div>
+      <div class="tabs auth-tabs">
+        <button class="tab active" id="loginTab" data-i18n="login">تسجيل الدخول</button>
+        <button class="tab" id="registerTab" data-i18n="register">حساب جديد</button>
+      </div>
+      <form id="authForm">
+        <label data-i18n="email">البريد الإلكتروني</label>
+        <input id="authEmail" type="email" autocomplete="email" required placeholder="name@example.com">
+        <label data-i18n="password">كلمة المرور</label>
+        <input id="authPassword" type="password" minlength="6" autocomplete="current-password" required placeholder="••••••••">
+        <div id="nameField" class="hidden">
+          <label data-i18n="displayName">الاسم الظاهر</label>
+          <input id="authName" type="text" maxlength="40" placeholder="Ahmed alkholy">
+        </div>
+        <button class="primary full" type="submit" id="authSubmit" data-i18n="login">تسجيل الدخول</button>
+      </form>
+    </section>
+  </main>
+
+  <main id="appView" class="app hidden">
+    <aside class="sidebar">
+      <div class="side-brand"><div class="brand-mark small"><img src="./assets/alkholy-a-logo.png" alt="Alkholy.A"></div><div><strong>Alkholy.A</strong><small data-i18n="messenger">مراسلة خاصة</small></div></div>
+      <nav class="nav">
+        <button class="nav-btn active" data-view="chats"><span>▤</span><b data-i18n="chats">المحادثات</b></button>
+        <button class="nav-btn" data-view="people"><span>♙</span><b data-i18n="people">الأشخاص</b></button>
+        <button class="nav-btn" data-view="statuses"><span>◉</span><b data-i18n="statuses">الحالات</b></button>
+        <button class="nav-btn" data-view="profile"><span>⚙</span><b data-i18n="profile">ملفي الشخصي</b></button>
+      </nav>
+      <div class="side-bottom">
+        <span class="online-dot"></span><span id="sideUserName">...</span>
+        <button id="logoutBtn" class="ghost" data-i18n="logout">خروج</button>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <div><h2 id="pageTitle" data-i18n="chats">المحادثات</h2><p id="pageSubtitle" class="muted" data-i18n="privateChat">رسائلك الخاصة</p></div>
+        <div class="top-actions">
+          <select id="appLang" aria-label="Language"><option value="ar">العربية</option><option value="en">English</option><option value="fr">Français</option></select>
+          <div class="avatar" id="topAvatar">A</div>
+        </div>
+      </header>
+
+      <section id="chatsView" class="view active">
+        <div class="list-panel">
+          <div class="section-head"><div><h3 data-i18n="yourChats">محادثاتك</h3><small class="muted" data-i18n="chooseChat">اختر محادثة للبدء</small></div><button class="icon-btn" id="refreshChats" title="Refresh">↻</button></div>
+          <div id="chatList" class="item-list"><div class="empty" data-i18n="loading">جارٍ التحميل...</div></div>
+        </div>
+        <div id="chatPanel" class="chat-panel">
+          <div id="chatEmpty" class="empty-state"><div class="empty-icon">✉</div><h3 data-i18n="selectConversation">اختر محادثة</h3><p class="muted" data-i18n="selectConversationHint">اختر شخصاً من قائمة المحادثات أو ابدأ محادثة جديدة من الأشخاص.</p></div>
+          <div id="chatActive" class="chat-active hidden">
+            <div class="chat-head"><div class="avatar" id="chatAvatar">?</div><div class="chat-person"><strong id="chatName">...</strong><small class="muted" id="chatEmail"></small></div><span class="chat-secure" data-i18n="private">خاصة</span></div>
+            <div id="messageList" class="message-list"></div>
+            <form id="sendForm" class="send-form"><input id="messageInput" maxlength="4000" autocomplete="off" data-i18n-placeholder="writeMessage" placeholder="اكتب رسالتك..." required><button class="primary" type="submit" data-i18n="send">إرسال</button></form>
+          </div>
+        </div>
+      </section>
+
+      <section id="peopleView" class="view">
+        <div class="content-card">
+          <div class="section-head"><div><h3 data-i18n="findPeople">ابحث عن الأشخاص</h3><small class="muted" data-i18n="findPeopleHint">ابدأ محادثة باستخدام البريد أو الاسم</small></div><button class="icon-btn" id="refreshPeople">↻</button></div>
+          <input id="peopleSearch" class="search" data-i18n-placeholder="searchPeople" placeholder="ابحث بالاسم أو البريد الإلكتروني">
+          <div id="peopleList" class="item-list"><div class="empty" data-i18n="loading">جارٍ التحميل...</div></div>
+        </div>
+      </section>
+
+      <section id="statusesView" class="view">
+        <div class="content-card">
+          <h3 data-i18n="statuses">الحالات</h3>
+          <p class="muted" data-i18n="statusHint">اكتب حالة قصيرة؛ ستختفي تلقائياً بعد 24 ساعة.</p>
+          <form id="statusForm" class="status-form"><textarea id="statusInput" maxlength="240" rows="3" data-i18n-placeholder="statusPlaceholder" placeholder="بماذا تفكر؟"></textarea><button class="primary" type="submit" data-i18n="publishStatus">نشر الحالة</button></form>
+          <div id="statusList" class="status-list"></div>
+        </div>
+      </section>
+
+      <section id="profileView" class="view">
+        <div class="content-card profile-card">
+          <div class="profile-avatar" id="profileAvatar">A</div>
+          <h3 data-i18n="profile">ملفي الشخصي</h3>
+          <form id="profileForm">
+            <label data-i18n="displayName">الاسم الظاهر</label><input id="profileName" maxlength="40" required>
+            <label data-i18n="email">البريد الإلكتروني</label><input id="profileEmail" type="email" disabled>
+            <label data-i18n="uid">معرّف المستخدم</label><input id="profileUid" disabled>
+            <button class="primary" type="submit" data-i18n="saveChanges">حفظ التغييرات</button>
+          </form>
+          <div class="notice" data-i18n="callsNote">المكالمات الصوتية: مرحلة تجريبية قادمة، وليست مفعّلة في هذه النسخة.</div>
+        </div>
+      </section>
+      <footer class="app-footer">Alkholy.A · <span data-i18n="poweredBy">يعمل بواسطة Firebase</span></footer>
+    </section>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
