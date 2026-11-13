@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#075e54">
+<title>Ahmed alkholy</title><link rel="icon" href="./assets/alkholy-app-icon.png"><link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div id="toast" class="toast" role="status"></div>
+<section id="auth" class="auth-screen">
+ <div class="auth-card">
+  <img class="brand-logo" src="./assets/alkholy-a-logo.png" alt="Ahmed alkholy">
+  <h1>Ahmed alkholy</h1><p class="sub">تواصل مع أصدقائك بسهولة وأمان</p>
+  <div class="auth-tabs"><button id="loginTab" class="selected">تسجيل الدخول</button><button id="registerTab">حساب جديد</button></div>
+  <form id="authForm">
+   <label id="nameLabel" class="hidden">الاسم</label><input id="name" class="hidden" autocomplete="name" placeholder="اسمك الظاهر">
+   <label>البريد الإلكتروني أو رقم الهاتف</label><input id="identity" required autocomplete="username" placeholder="name@example.com أو 01xxxxxxxxx">
+   <label>كلمة المرور</label><input id="password" type="password" required minlength="8" autocomplete="current-password" placeholder="أدخل كلمة المرور">
+   <button class="primary wide" id="authSubmit">تسجيل الدخول</button>
+  </form><p class="hint">كلمة المرور لا تقل عن 8 أحرف</p>
+ </div>
+</section>
+<section id="app" class="app hidden">
+ <header class="topbar"><div class="brand"><img src="./assets/alkholy-a-logo.png" alt=""><div><b>Ahmed alkholy</b><small>المراسلة</small></div></div><button id="logout" class="logout">خروج</button></header>
+ <nav class="tabs"><button class="tab active" data-page="chats">المحادثات</button><button class="tab" data-page="statuses">الحالات</button><button class="tab" data-page="people">الأصدقاء</button><button class="tab" data-page="profile">حسابي</button></nav>
+ <main>
+  <section id="chatsPage" class="page active">
+   <div class="page-title"><h2>المحادثات</h2><button id="reloadChats" class="round">↻</button></div>
+   <div class="chat-layout"><div id="chatList" class="chat-list"><div class="empty">لا توجد محادثات بعد</div></div>
+    <div id="conversation" class="conversation"><div id="conversationEmpty" class="empty big">اختر محادثة لبدء الدردشة</div>
+     <div id="conversationBody" class="conversation-body hidden"><div class="conversation-head"><button id="backChats" class="back">رجوع</button><div class="avatar" id="peerAvatar">A</div><div><b id="peerName">صديق</b><small id="peerInfo"></small></div></div>
+      <div id="messages" class="messages"></div><form id="sendForm" class="send-form"><input id="message" placeholder="اكتب رسالة..." maxlength="4000" autocomplete="off"><button class="send">إرسال</button></form>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section id="statusesPage" class="page"><h2>الحالات</h2><form id="statusForm" class="status-compose"><textarea id="statusText" maxlength="2000" placeholder="اكتب حالتك..." required></textarea><button class="primary">نشر الحالة</button></form><div id="statusList" class="status-list"></div></section>
+  <section id="peoplePage" class="page"><h2>إضافة صديق</h2><p class="muted">ابحث بالاسم أو البريد الإلكتروني أو رقم الهاتف</p><div class="search-row"><input id="peopleQuery" placeholder="ابحث عن صديق"><button id="searchPeople" class="primary">بحث</button></div><div id="peopleList" class="people-list"></div><h3>طلبات الصداقة الواردة</h3><div id="requestsList"></div></section>
+  <section id="profilePage" class="page"><div class="profile-card"><div class="avatar large" id="myAvatar">A</div><h2 id="myName">حسابي</h2><p id="myIdentity" class="muted"></p><p class="hint">يتم حفظ حسابك ورسائلك في قاعدة بيانات التطبيق.</p></div></section>
+ </main>
+</section>
+<script src="./app.js"></script>
+</body></html>

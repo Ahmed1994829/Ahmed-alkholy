@@ -1,0 +1,22 @@
+# Ahmed alkholy — Android WebView Chat
+
+## التعديلات في هذه النسخة
+- تسجيل الدخول وإنشاء الحساب برقم الهاتف ورمز SMS عبر Firebase Phone Authentication.
+- إخفاء البريد الإلكتروني ومعرّف UID من واجهة الملف الشخصي.
+- البحث عن الأصدقاء بالاسم أو رقم الهاتف مع زر (+).
+- فصل المحادثات والأشخاص والحالات والملف الشخصي في صفحات مستقلة.
+- إرسال الصور فقط كمرفقات داخل المحادثات (حد أقصى 8 ميجابايت)، ولا يوجد اختيار لرفع ملفات عامة.
+
+## إعداد Firebase المطلوب قبل التجربة
+1. من Firebase Console > Authentication > Sign-in method فعّل Phone.
+2. أضف نطاق الاستضافة المناسب إلى Authorized domains. عند الاختبار عبر WebView تأكد من أن Firebase Phone Auth وreCAPTCHA يعملان على جهازك؛ قد تحتاج إعدادات SHA-1/SHA-256 الخاصة بتطبيق Android وإعدادات Firebase المناسبة.
+3. فعّل Cloud Firestore.
+4. فعّل Firebase Storage، ثم انشر محتوى `storage.rules` إلى Storage Rules.
+5. انشر `firestore.rules` إلى Firestore Rules.
+6. تأكد أن `storageBucket` في `firebase-config.js` هو اسم الحاوية الفعلي في مشروع Firebase.
+
+## ملاحظات مهمة
+- لا يمكن تسجيل الدخول بالهاتف قبل تفعيل Phone Authentication في لوحة Firebase.
+- اختبار SMS قد يتطلب رقم هاتف حقيقي أو أرقام اختبار مضافة من Firebase Console.
+- البحث عن الأصدقاء يعمل على أرقام الهواتف التي سبق تخزينها في مستندات Users بواسطة تسجيل الدخول بالهاتف.
+- هذا ملف مصدر Android Studio؛ يلزم بناء APK من Android Studio أو Gradle بعد فتح المشروع.
